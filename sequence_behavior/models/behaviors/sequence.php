@@ -248,7 +248,7 @@ class SequenceBehavior extends ModelBehavior {
     if (!$model->id) {
 
       // Order not specified
-      if (is_null($this->newOrder)) {
+      if (!$this->newOrder) {
 
         // Insert at end of list
         $model->data[$model->alias][$this->orderField] = $this->getHighestOrder($model, $this->newGroups) + 1;
