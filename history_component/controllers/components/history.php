@@ -32,14 +32,14 @@
  * @link http://github.com/neilcrookes/cakephp/tree/master
  *
  */
-class HistoryComponent extends Object {
+class HistoryComponent extends Component {
 
   /**
    * Other components this component uses
    *
    * @var array
    */
-  var $components = array('Session', 'RequestHandler');
+  public $components = array('Session', 'RequestHandler');
 
   /**
    * Default settings for the component, overrideable by settings declared when
@@ -98,9 +98,10 @@ class HistoryComponent extends Object {
    * @param object $controller
    * @param array $config
    */
-  function initialize(&$controller, $config = array()) {
+    function initialize(Controller $controller) {
 
     $this->Controller = $controller;
+    $config = array();
 
     if (!is_array($config)) {
       $config = array($config);
@@ -117,7 +118,7 @@ class HistoryComponent extends Object {
    *
    * @param object $controller
    */
-  function startup(&$controller) {
+    function startup(Controller $controller) {
   }
 
   /**
@@ -126,12 +127,12 @@ class HistoryComponent extends Object {
    * Routing.admin)
    *
    */
-  function beforeRender() {
+    function beforeRender(Controller $controller) {
 
     $uri = null;
 
-    if (isset($this->params['url']['url'])) {
-      $uri = '/'.$this->params['url']['url'];
+    if (isset($this->Controller->request->url)) {
+	$uri = '/'.$this->Controller->request->url;
     }
 
     if (!is_string($uri) || empty($uri)) {
